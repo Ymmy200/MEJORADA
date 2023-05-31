@@ -1,0 +1,154 @@
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header id="titulo" style="display: block;">
+    <h1>ALGEBRA LINEAL</h1>
+  </header>
+  <div id="seleccion-calculadora">
+    <h2>¿Qué calculadora te gustaría usar?</h2>
+    <button id="btn-vector" onclick="mostrarCalculadora('vector')">Calculadora de vectores</button>
+    <button id="btn-matriz" onclick="mostrarCalculadora('matriz')">Calculadora de inversa de una matriz</button>
+    <button id="btn-vectores" onclick="mostrarCalculadora('vectores')">Vectores</button>
+    <button id="btn-graficos" onclick="mostrarCalculadora('graficos')">Suma y Resta de Matrices</button>
+  </div>
+  <main id="calculadora-vectores" style="display: none;">
+      <header>
+        <h1>CALCULADORA DE VECTORES!</h1>
+      </header>
+    <form id="formulario">
+      <label for="num-dimensiones">Número de dimensiones:</label>
+      <select id="num-dimensiones">
+        <option value="2">2D</option>
+        <option value="3">3D</option>
+      </select>
+      <div id="coordenadas-2d">
+        <label for="x-2d">Coordenada x:</label>
+        <input type="number" id="x-2d">
+        <label for="y-2d">Coordenada y:</label>
+        <input type="number" id="y-2d">
+        <p id="cuadrante"></p>
+      </div>
+      <div id="coordenadas-3d" style="display: none;">
+        <label for="x-3d">Coordenada x:</label>
+        <input type="number" id="x-3d">
+        <label for="y-3d">Coordenada y:</label>
+        <input type="number" id="y-3d">
+        <label for="z-3d">Coordenada z:</label>
+        <input type="number" id="z-3d">
+      </div>
+      <button type="submit" id="btn-calcular" class="btn-calcular">Calcular</button>
+      <button type="submit" id="LimpiarCalculadora" onclick="limpiarCalculadora()">Menu</button>
+    </form>
+    <div id="resultado">
+      <p id="magnitud"></p>
+      <p id="formula-magnitud" style="display: none;">Formula: √(x² + y² + z²)</p>
+      <p id="angulo" style="display: none;"></p>
+      <p id="cuadrante-2d" style="display: none;"></p>
+      <p id="cosenos" style="display: none;"></p>
+      <p id="vector-unitario" style="display: none;"></p>
+      <p id="direccion" style="display: none;"></p>
+      <p id="formula-angulo" style="display: none;">Formula: atan(y/x) o atan(sqrt(x² + y²)/z)</p>
+      <p id="formula-cuadrante" style="display: none;">Formula: Determinado por los signos de x e y</p>
+      <p id="formula-cosenos" style="display: none;">Formula: cos(θ) = x / magnitud, cos(φ) = y / magnitud, cos(λ) = z / magnitud</p>
+      <p id="formula-vector-unitario" style="display: none;">Formula: (x / magnitud)i + (y / magnitud)j + (z / magnitud)k</p>
+      <p id="formula-direccion" style="display: none;">Formula: Ángulo entre el vector y el eje x, y el ángulo entre el vector y el eje xy</p>
+    </div>
+
+  </main>
+
+  <div id="calculadora-matrices" style="display: none;">
+    <header>
+      <h1>Calculadora de Matrices</h1>
+    </header>
+    <div>
+      <label for="dimensiones">Selecciona el nuumero de dimensiones:</label>
+      <select id="dimensiones">
+        <option value="2">2x2</option>
+        <option value="3">3x3</option>
+      </select>
+    </div>
+  
+    <div id="matriz-input"></div>
+  
+    <button id="btn-calcular-two">Calcular inversa</button>
+    <button type="button" id="limpiarCalculadora" onclick="limpiarCalculadoraMatrices()">Menu</button>
+
+
+  
+    <div class="resultado">
+      <h3>Matriz Original</h3>
+      <div id="matriz-original"></div>
+    </div>
+    
+    <div class="resultado">
+      <h3>Matriz Inversa</h3>
+      <div id="matriz-inversa"></div>
+    </div>
+  </div>
+  <div id="vectores-two" style="display: none;">
+
+    <header>
+      <h1>VECTORES! </h1>
+    </header>
+    <div>
+      <h2>Ingrese las coordenadas de los vectores:</h2>
+      <label for="dimension">Dimensiones:</label>
+      <select id="dimension" onchange="cambiarDimension()">
+        <option value="2">2D</option>
+        <option value="3">3D</option>
+      </select>
+      <br>
+      <label for="vector-a">Vector A:</label>
+      <input type="text" id="vector-a" placeholder="x, y">
+      <br>
+      <label for="vector-b">Vector B:</label>
+      <input type="text" id="vector-b" placeholder="x, y">
+      <br>
+      <button onclick="calcular()" >Calcular</button>
+      <button onclick="volverAlMenu()" >Menu</button>
+    </div>
+    <div id="resultado-vectores" style="display: none;">
+      <h2>Resultado:</h2>
+      <p id="producto-escalar"></p>
+      <p id="producto-vectorial"></p>
+      <p id="paso-1" style="display: none;"></p>
+      <p id="paso-2" style="display: none;"></p>
+      <p id="paso-3" style="display: none;"></p>
+      <p id="paso-4" style="display: none;"></p>
+    </div>
+
+
+  </div>
+
+  <div id="graficos" style="display: none;">
+    <div id="matrices-input">
+      <div class="matrix-input">
+          <h3>Matriz A:</h3>
+          <input type="number" id="a11" placeholder="A11"> <input type="number" id="a12" placeholder="A12"> <input type="number" id="a13" placeholder="A13">
+          <input type="number" id="a21" placeholder="A21"> <input type="number" id="a22" placeholder="A22"> <input type="number" id="a23" placeholder="A23">
+          <input type="number" id="a31" placeholder="A31"> <input type="number" id="a32" placeholder="A32"> <input type="number" id="a33" placeholder="A33">
+      </div>
+      <div class="matrix-input">
+          <h3>Matriz B:</h3>
+          <input type="number" id="b11" placeholder="B11"> <input type="number" id="b12" placeholder="B12"> <input type="number" id="b13" placeholder="B13">
+          <input type="number" id="b21" placeholder="B21"> <input type="number" id="b22" placeholder="B22"> <input type="number" id="b23" placeholder="B23">
+          <input type="number" id="b31" placeholder="B31"> <input type="number" id="b32" placeholder="B32"> <input type="number" id="b33" placeholder="B33">
+      </div>
+      <button onclick="sumarMatrices()" class="btn">Sumar</button>
+      <button onclick="restarMatrices()" class="btn">Restar</button>
+      <button onclick="reiniciar()" class="btn">Menu</button>
+  </div>
+
+  <div id="resultado-three" style="display: none;">
+      <h3>Resultado:</h3>
+      <div id="sumResult"></div>
+      <div id="subResult"></div>
+  </div>
+  
+  </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/9.4.4/math.min.js"></script>
+  
+<script src="script.js"></script>
+</body>
+</html>
